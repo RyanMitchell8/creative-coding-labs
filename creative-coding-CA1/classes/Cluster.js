@@ -113,7 +113,7 @@ class ClusteredBarChart {
     for (let i = 0; i < this.data.length; i++) {
       // Loops through the data to render each label.
 
-      let xPos = (this.barWidth + this.gap) * i; // Calculates the X position for each label.
+      let xPos = (this.barWidth*2 + this.gap) * i; // Calculates the X position for each label.
       fill(this.textColour); // Sets the text color.
       noStroke();
       textAlign(LEFT, CENTER); // Aligns he text to the left and vertically centered.

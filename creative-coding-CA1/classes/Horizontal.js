@@ -54,7 +54,7 @@ class HorizontalBarchart{
             noStroke();
             //rect(xPos, 0, this.barWidth, -this.data[i][this.yValue] * this.scaler); 
 
-            rect(0, yPos, this.data[i][this.yValue] * this.scaler, this.barWidth)
+            rect(-12, yPos, this.data[i][this.yValue] * this.scaler, this.barWidth)
 
             // Draws the bar at the calculated position with height scaled by the y value.
         }
