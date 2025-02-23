@@ -52,6 +52,17 @@ function setup(){
           yValues: ['Male', 'Female']
         })
       );
+
+      charts.push(
+        new LineChart({
+          data: cleanedData,
+          xValue: "Age_Group",
+          yValue: "Female",
+          barWidth: 25,
+          chartPosX: 200,
+          chartPosY: 1500,
+        })
+      );
 }
 
 function draw(){
