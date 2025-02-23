@@ -27,7 +27,8 @@ function setup(){
           xValue: "Age_Group",
           yValue: "Female",
           barWidth: 15,
-          chartPosX: 800,
+          chartPosX: 1000,
+          chartPosY: 800,
         })
       );
     
@@ -41,17 +42,17 @@ function setup(){
           yValues: ["Male", "Female"],
         })
       );
-      charts.push(
-        new ClusteredBarChart({
-          data: cleanedData,
-          xValue: "Age_Group",
-          yValue: "Female",
-          barWidth: 15,
-          chartPosX: 800,
-          chartPosY: 1000,
-          yValues: ['Male', 'Female']
-        })
-      );
+      // charts.push(
+      //   new ClusteredBarChart({
+      //     data: cleanedData,
+      //     xValue: "Age_Group",
+      //     yValue: "Female",
+      //     barWidth: 15,
+      //     chartPosX: 800,
+      //     chartPosY: 1000,
+      //     yValues: ['Male', 'Female']
+      //   })
+      // );
 
       charts.push(
         new LineChart({

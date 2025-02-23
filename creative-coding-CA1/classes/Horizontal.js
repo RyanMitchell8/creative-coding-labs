@@ -7,7 +7,7 @@ class HorizontalBarchart{
         this.data = obj.data; // Assigns the input data to the property `data`.
         this.xValue = obj.xValue; // Sets the name of the x-axis data field.
         this.yValue = obj.yValue; // Sets the name of the y-axis data field.
-        this.chartHeight = obj.chartHeight || 350; // Sets the height of the chart.
+        this.chartHeight = obj.chartHeight || 400; // Sets the height of the chart.
         this.chartWidth = obj.chartWidth || 450; // Sets the width of the chart.
         this.barWidth = obj.barWidth || 15; // Sets the width of each bar.
         this.margin = obj.margin || 15;// Sets the margin around the chart.
@@ -16,7 +16,7 @@ class HorizontalBarchart{
         this.chartPosY = obj.chartPosY || 450;// Sets the Y position.
 
         // Calculates the gap between bars, considering the total chart width, bar width, and margin.
-        this.gap = (this.chartHeight - (this.data.length * this.barWidth)) / (this.data.length - 1);        
+        this.gap = (this.chartHeight - (this.data.length * this.barWidth)) / (this.data.length + 1);        
 
         // Calculates a scaling factor for the height of the bars based on the chart height and the maximum value of y-axis data.
         this.scaler = this.chartHeight / (max(this.data.map(row => row[this.yValue])));
@@ -46,9 +46,6 @@ class HorizontalBarchart{
             // Loops through the data to render each bar.
             
             let yPos = -((this.barWidth + this.gap) * i) - this.barWidth / 2; // Calculates the X position for each bar.
-            
-
-            console.log('yPos:', yPos)
 
             fill(this.barColour); // Sets the fill color of the bar.
             noStroke();
@@ -114,39 +111,33 @@ class HorizontalBarchart{
         stroke(this.axizTickColour); 
         strokeWeight(this.axisThickness); 
     
-        // Find the max Y value from the data
-        for (let i = 0; i < this.data.length; i++) {
-            if (this.data[i][this.yValue] > this.maxValue) {
-                this.maxValue = this.data[i][this.yValue];
-            }
-        }
-        
-        let tickIncrement = this.maxValue / this.Ticks; 
-        let pixelIncrement = this.chartHeight / this.Ticks;
-        
-        for (let i = 0; i <= this.Ticks; i++) { 
-            let yPos = -pixelIncrement * i;
-
-            console.log('tick y value: ', yPos)
-
-            let tickValue = tickIncrement * i;
+        // Extract unique Y labels from the dataset
+        let tickNames = this.data.map(d => d[this.xValue]);  
+        let pixelIncrement = this.chartHeight / tickNames.length;
     
-            // Draw ticks on the Y-axis
-            line(0, yPos, -this.numTicks, yPos);           
-            
+        for (let i = 0; i < tickNames.length; i++) { 
+            let xPos = -pixelIncrement * i - pixelIncrement / 2; // Adjust to center labels in bars
+    
+            push(); // Save transformation state
+            translate(-this.numTicks - 5, xPos); // Move tick mark and label to align with bar center
+    
+            // Draw tick mark
+            stroke(this.axizTickColour);
+            line(this.numTicks, 0, 0, 0); // Adjust tick placement
+    
             noStroke();  
-            
-            // Draw tick values
             fill(this.textColour);
             textAlign(RIGHT, CENTER);
             textSize(15);
-            text(tickValue.toFixed(0), -this.numTicks - 10, yPos);  // Display the tick values rounded to integers
-            
-            stroke(this.axizTickColour);
+            text(tickNames[i], -5, 0); // Display label
+    
+            pop(); // Restore state
         }
     
         pop();
     }
+    
+    
     
       
 }

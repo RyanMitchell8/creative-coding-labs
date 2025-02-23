@@ -17,7 +17,7 @@ class ClusteredBarChart {
 
     // Calculates the gap between bars, considering the total chart width, bar width, and margin.
     this.gap =
-      (this.chartWidth - this.data.length * this.barWidth - this.margin * 2) /
+      (this.chartWidth - (this.data.length * this.barWidth) - this.margin * 2) /
       (this.data.length - 1);
 
     this.yvalueTotal = "Total";
@@ -96,7 +96,7 @@ class ClusteredBarChart {
     strokeWeight(this.axisThickness); // Sets the thickness of the axis lines.
 
     line(0, 0, 0, -this.chartHeight); // Draws the Y-axis.
-    line(0, 0, this.chartWidth, 0); // Draws the X-axis.
+    line(0, 0, this.chartWidth + this.chartWidth / 2, 0); // Draws the X-axis.
 
     pop(); // Restores the drawing state after rendering the axes.
   }

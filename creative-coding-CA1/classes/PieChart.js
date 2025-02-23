@@ -49,7 +49,7 @@ class PieChart {
             fill(random(255), 100, 0);
             stroke(255);
             let angleEnd = (this.myNewArray[i] / this.total) * 360;
-            arc(0, 0, 500, 500, this.angleStart, angleEnd, PIE);
+            arc(0, 0, 650, 650, this.angleStart, angleEnd, PIE);
 
             let midAngle = (angleEnd-this.angleStart)/2;
             let xPos = 150*cos(midAngle);
@@ -61,15 +61,16 @@ class PieChart {
             push();
             translate(xPos, yPos);
             
-            if(this.trackAngle<180){
+            if(this.trackAngle<150){
                 rotate(midAngle )
             }else {
                 rotate(midAngle)
             }
             
             textAlign(LEFT,CENTER)
-            textSize(14)
-            text("john" ,0,0);
+            textSize(15)
+            text(this.data[i][this.xValue], 0, 0);
+
             pop()
             rotate (angleEnd);
 
