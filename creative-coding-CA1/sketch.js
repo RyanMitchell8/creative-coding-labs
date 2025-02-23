@@ -7,7 +7,7 @@ function preload(){
 }
 
 function setup(){
-    createCanvas(1800, 1600);
+    createCanvas(1800, 1900);
     angleMode(DEGREES);
     noLoop();
     cleanData(); 
@@ -61,6 +61,17 @@ function setup(){
           barWidth: 25,
           chartPosX: 200,
           chartPosY: 1500,
+        })
+      );
+
+      charts.push(
+        new PieChart({
+          data: cleanedData,
+          xValue: "Age_Group",
+          yValue: "Female",
+          barWidth: 25,
+          chartPosX: 1100,
+          chartPosY: 1400,
         })
       );
 }
