@@ -8,7 +8,7 @@ class ClusteredBarChart {
     this.xValue = obj.xValue; // Sets the name of the x-axis data field.
     //this.yValue = obj.yValue; // Sets the name of the y-axis data field.
     this.chartHeight = obj.chartHeight || 350; // Sets the height of the chart.
-    this.chartWidth = obj.chartWidth || 450; // Sets the width of the chart.
+    this.chartWidth = obj.chartWidth || 550; // Sets the width of the chart.
     this.barWidth = obj.barWidth || 15; // Sets the width of each bar.
     this.margin = obj.margin || 15; // Sets the margin around the chart.
     this.axisThickness = obj.axisThickness || 5; // Sets the thickness of the axis lines.
@@ -18,7 +18,7 @@ class ClusteredBarChart {
     // Calculates the gap between bars, considering the total chart width, bar width, and margin.
     this.gap =
       (this.chartWidth - (this.data.length * this.barWidth* 2) - (this.margin * 2)) /
-      (this.data.length - 1);
+      (this.data.length - 2);
 
     this.yvalueTotal = "Total";
 
@@ -45,7 +45,7 @@ class ClusteredBarChart {
     // Calculates a scaling factor for the height of the bars based on the chart height and the maximum value of y-axis data.
     this.scaler = this.chartHeight / this.maxValue;
 
-    this.barColours = [color(255, 0, 0), color(0, 255, 0)];
+    this.barColours = [color(50, 170, 200), color(70, 180, 150)];
     
     this.chartTitle = obj.chartTitle || "Clustered Bar Chart"; // Add chart title property
     this.xAxisLabel = this.xValue; // Add X axis label property
@@ -76,11 +76,7 @@ class ClusteredBarChart {
         fill(this.barColours[j % 3]);
         noStroke();
 
-        rect(
-          this.barWidth * j,
-          0,
-          this.barWidth,
-          -this.data[i][this.yValues[j]] * this.scaler
+        rect(this.barWidth * j,0, this.barWidth, -this.data[i][this.yValues[j]] * this.scaler
         );
         //   pop();
       }
@@ -111,10 +107,12 @@ class ClusteredBarChart {
     
     // X-axis label (centered)
     noStroke()
+    textFont(font);
     text(this.xAxisLabel, this.chartWidth / 2, 100); 
     
     // Y-axis label (centered vertically)
     push();
+    textFont(font);
     text(this.yAxisLabel, -this.chartHeight / 3, -170); // Rotate to place Y-axis label vertically
     pop();
 
@@ -142,6 +140,7 @@ class ClusteredBarChart {
       push(); // Saves the drawing state for rotating the text.
       translate(xPos + this.barWidth / 2, 10); // Positions the label in the center of each bar with a slight vertical offset.
       rotate(35);
+      textFont(font);
       text(this.data[i][this.xValue], 2, 0); // Draws the label using the x-value from the data.
       pop(); // Restores the drawing state after rotating the text.
     }
@@ -180,6 +179,7 @@ class ClusteredBarChart {
       fill(this.textColour);
       textAlign(RIGHT, CENTER);
       textSize(15);
+      textFont(font);
       text(tickValue.toFixed(0), -this.numTicks - 10, yPos); // Display the tick values rounded to integers
 
       stroke(this.axizTickColour);
@@ -194,6 +194,7 @@ class ClusteredBarChart {
     fill(this.textColour);
     textSize(20);
     textAlign(CENTER, CENTER);
+    textFont(font);
     text(this.chartTitle, 250, 0); // Render the chart title
     pop();
 }

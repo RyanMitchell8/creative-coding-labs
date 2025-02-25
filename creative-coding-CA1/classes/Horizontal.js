@@ -83,10 +83,12 @@ class HorizontalBarchart{
         
         // X-axis label (centered)
         noStroke()
+        textFont(font);
         text(this.xAxisLabel, this.chartWidth / 2, 100); 
         
         // Y-axis label (centered vertically)
         push();
+        textFont(font);
         text(this.yAxisLabel, -this.chartHeight / 4, -170); // Rotate to place Y-axis label vertically
         pop();
 
@@ -114,6 +116,7 @@ class HorizontalBarchart{
             push(); // Saves the drawing state for rotating the text.
             translate(xPos + this.barWidth / 2, 10); // Positions the label in the center of each bar with a slight vertical offset.
             rotate(35);
+            textFont(font);
             text(this.data[i][this.xValue], 2, 0); // Draws the label using the x-value from the data.
             pop(); // Restores the drawing state after rotating the text.
         }
@@ -147,6 +150,7 @@ class HorizontalBarchart{
             fill(this.textColour);
             textAlign(RIGHT, CENTER);
             textSize(15);
+            textFont(font);
             text(tickNames[i], -5, 0); // Display label
     
             pop(); // Restore state
@@ -161,6 +165,7 @@ class HorizontalBarchart{
         fill(this.textColour);
         textSize(20);
         textAlign(CENTER, CENTER);
+        textFont(font);
         text(this.chartTitle, 250, 0); // Render the chart title
         pop();
     }

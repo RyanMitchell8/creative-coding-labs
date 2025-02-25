@@ -46,7 +46,7 @@ class PieChart {
         translate(this.chartPosX, this.chartPosY); // Translates the origin to the chart's position.
 ;
         for (let i = 0; i < this.myNewArray.length; i++) {
-            fill(random(255), 100, 0);
+            fill(random(0, 100), 100, random(150, 255)); // Random red between 0 and 100, green 100, random blue between 150 and 255
             stroke(255);
             let angleEnd = (this.myNewArray[i] / this.total) * 360;
             arc(0, 0, 650, 650, this.angleStart, angleEnd, PIE);
@@ -69,6 +69,7 @@ class PieChart {
             
             textAlign(LEFT,CENTER)
             textSize(15)
+            textFont(font);
             text(this.data[i][this.xValue], 0, 0);
 
             pop()

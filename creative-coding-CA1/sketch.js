@@ -3,7 +3,8 @@ let cleanedData =[];
 let charts =[]
 
 function preload(){
-    data = loadTable('data/Footballcc.csv', 'csv', 'header')
+    data = loadTable('data/Footballcc.csv', 'csv', 'header');
+    font = loadFont(`Merriweather/Merriweather-Black.ttf`);
 }
 
 function setup(){
@@ -48,8 +49,8 @@ function setup(){
           data: cleanedData,
           xValue: "Season",
           yValue: "Bale",
-          barWidth: 8,
-          chartPosX: 900,
+          barWidth: 10,
+          chartPosX: 1050,
           chartPosY: 1000,
           yValues: ['Neymar', 'Bale']
         })
