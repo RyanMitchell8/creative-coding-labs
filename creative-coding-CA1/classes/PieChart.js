@@ -75,7 +75,8 @@ class PieChart {
     }
 
     // Other functions (renderAxis, renderLabels, etc.) can be kept as they are or modified as per your needs.
-    renderAxis() { push(); // Saves the current drawing
+    renderAxis() { 
+        push(); // Saves the current drawing
         translate(this.chartPosX, this.chartPosY); // Moves the origin to the center of the chart
         
         for (let i = 0; i < this.myNewArray.length; i++) {
