@@ -8,7 +8,7 @@ class BarChart {
         this.xValue = obj.xValue; // Sets the name of the x-axis data field.
         this.yValue = obj.yValue; // Sets the name of the y-axis data field.
         this.chartHeight = obj.chartHeight || 350; // Sets the height of the chart.
-        this.chartWidth = obj.chartWidth || 450; // Sets the width of the chart.
+        this.chartWidth = obj.chartWidth || 550; // Sets the width of the chart.
         this.barWidth = obj.barWidth || 15; // Sets the width of each bar.
         this.margin = obj.margin || 15;// Sets the margin around the chart.
         this.axisThickness = obj.axisThickness || 5; // Sets the thickness of the axis lines.

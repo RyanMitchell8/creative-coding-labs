@@ -3,7 +3,7 @@ let cleanedData =[];
 let charts =[]
 
 function preload(){
-    data = loadTable('data/Combined.csv', 'csv', 'header')
+    data = loadTable('data/Footballcc.csv', 'csv', 'header')
 }
 
 function setup(){
@@ -15,51 +15,51 @@ function setup(){
     charts.push(
         new BarChart({
           data: cleanedData,
-          xValue: "Age_Group",
-          yValue: "Female",
-          barWidth: 25,
+          xValue: "Season",
+          yValue: "Ronaldo",
+          barWidth: 15,
         })
       );
     
       charts.push(
         new HorizontalBarchart({
           data: cleanedData,
-          xValue: "Age_Group",
-          yValue: "Female",
+          xValue: "Season",
+          yValue: "Messi",
           barWidth: 15,
-          chartPosX: 1000,
-          chartPosY: 800,
+          chartPosX: 900,
+          chartPosY: 500,
         })
       );
     
       charts.push(
         new StackedBarchart({
           data: cleanedData,
-          xValue: "Age_Group",
-          yValue: "Female",
+          xValue: "Season",
+          yValue: "Ronaldo",
           barWidth: 15,
           chartPosY: 1000,
-          yValues: ["Male", "Female"],
+          yValues: ["Messi", "Ronaldo"],
         })
       );
-      // charts.push(
-      //   new ClusteredBarChart({
-      //     data: cleanedData,
-      //     xValue: "Age_Group",
-      //     yValue: "Female",
-      //     barWidth: 15,
-      //     chartPosX: 800,
-      //     chartPosY: 1000,
-      //     yValues: ['Male', 'Female']
-      //   })
-      // );
+      charts.push(
+        new ClusteredBarChart({
+          data: cleanedData,
+          xValue: "Season",
+          yValue: "Bale",
+          barWidth: 15,
+          chartPosX: 800,
+          chartPosY: 1000,
+          yValues: ['Neymar', 'Bale']
+        })
+      );
 
       charts.push(
         new LineChart({
           data: cleanedData,
-          xValue: "Age_Group",
-          yValue: "Female",
-          barWidth: 25,
+          xValue: "Season",
+          yValue: "Neymar",
+          barWidth: 15,
           chartPosX: 200,
           chartPosY: 1500,
         })
@@ -68,13 +68,14 @@ function setup(){
       charts.push(
         new PieChart({
           data: cleanedData,
-          xValue: "Age_Group",
-          yValue: "Female",
+          xValue: "Season",
+          yValue: "Ronaldo",
           barWidth: 25,
           chartPosX: 1100,
           chartPosY: 1400,
         })
       );
+    
 }
 
 function draw(){
@@ -94,8 +95,10 @@ function cleanData(){
     }
 
     for(i =0; i < cleanedData.length; i++){
-        cleanedData[i].Female = parseInt(cleanedData[i].Female)
-        cleanedData[i].Male = parseInt(cleanedData[i].Male)
+        cleanedData[i].Ronaldo = parseInt(cleanedData[i].Ronaldo)
+        cleanedData[i].Messi = parseInt(cleanedData[i].Messi)
+        cleanedData[i].Bale = parseInt(cleanedData[i].Bale)
+        cleanedData[i].Neymar = parseInt(cleanedData[i].Neymar)
         cleanedData[i].Total = parseInt(cleanedData[i].Total)
     }
 }

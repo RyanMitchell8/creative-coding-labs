@@ -30,7 +30,7 @@ class PieChart {
 
         this.maxValue = 0;
 
-        this.myNewArray = this.data.map(row => row.Female);
+        this.myNewArray = this.data.map(row => row[this.yValue]);
         this.total = 0;
         this.myNewArray.forEach(item => this.total = this.total + item);
 
