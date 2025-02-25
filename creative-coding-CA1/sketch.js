@@ -8,7 +8,7 @@ function preload(){
 }
 
 function setup(){
-    createCanvas(1800, 1900);
+    createCanvas(3800, 2900);
     angleMode(DEGREES);
     noLoop();
     cleanData(); 
@@ -62,8 +62,8 @@ function setup(){
           xValue: "Season",
           yValue: "Neymar",
           barWidth: 15,
-          chartPosX: 200,
-          chartPosY: 1600,
+          chartPosX: 1700,
+          chartPosY: 420,
         })
       );
 
@@ -71,10 +71,10 @@ function setup(){
         new PieChart({
           data: cleanedData,
           xValue: "Season",
-          yValue: "Ronaldo",
+          yValue: "Neymar",
           barWidth: 25,
-          chartPosX: 1150,
-          chartPosY: 1500,
+          chartPosX: 950,
+          chartPosY: 1650,
         })
       );
     

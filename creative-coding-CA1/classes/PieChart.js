@@ -1,181 +1,121 @@
-class PieChart {  
-    // Defines a class called BarChart.
-
+class PieChart {
     constructor(obj) { 
         // Constructor function initializes the chart with multiple properties (data, chart heights widths, colours).
-
         this.data = obj.data; // Assigns the input data to the property `data`.
         this.xValue = obj.xValue; // Sets the name of the x-axis data field.
         this.yValue = obj.yValue; // Sets the name of the y-axis data field.
         this.chartHeight = obj.chartHeight || 350; // Sets the height of the chart.
         this.chartWidth = obj.chartWidth || 450; // Sets the width of the chart.
-        this.barWidth = obj.barWidth || 15; // Sets the width of each bar.
-        this.margin = obj.margin || 15;// Sets the margin around the chart.
-        this.axisThickness = obj.axisThickness || 5; // Sets the thickness of the axis lines.
-        this.chartPosX = obj.chartPosX || 200;// Sets the X position.
-        this.chartPosY = obj.chartPosY || 450;// Sets the Y position.
+        this.margin = obj.margin || 15; // Sets the margin around the chart.
+        this.chartPosX = obj.chartPosX || 200; // Sets the X position.
+        this.chartPosY = obj.chartPosY || 450; // Sets the Y position.
 
-        // Calculates the gap between bars, considering the total chart width, bar width, and margin.
+        // Defines the radius of the donut's hole
+        this.innerRadius = obj.innerRadius || 100; // Default inner radius for the hole
 
-        // Calculates a scaling factor for the height of the bars based on the chart height and the maximum value of y-axis data.
+        // Calculates the scaling factor based on the height and the max value of y-axis data
         this.scaler = this.chartHeight / (max(this.data.map(row => row[this.yValue])));
 
-        this.axizTickColour = color(0); // Light gray for the axis ticks.
-        this.axizColour = color(0); // Dark blue for the axis lines.
-        this.barColour = color(50, 170, 200); // Soft blue for the bars.
-        this.textColour = color(50); // Dark gray for the text labels on the x-axis.
+        this.axizTickColour = color(0); // Axis tick color
+        this.axizColour = color(0); // Axis color
+        this.barColour = color(50, 170, 200); // Bar color
+        this.textColour = color(50); // Text color for labels
         
-        this.Ticks = 8; // Sets the number of ticks on the Y-axis.
-        this.numTicks = 10; // Sets the number of ticks on the X-axis.
-
-        this.maxValue = 0;
+        this.Ticks = 8; // Number of Y-axis ticks
+        this.numTicks = 10; // Number of X-axis ticks
 
         this.myNewArray = this.data.map(row => row[this.yValue]);
-        this.total = 0;
-        this.myNewArray.forEach(item => this.total = this.total + item);
+        this.total = this.myNewArray.reduce((sum, item) => sum + item, 0); // Total of the Y-values
 
-        this.angleStart = 0;
-        this.trackAngle = 0
-        
+        this.angleStart = 0; // Initial starting angle
+        this.trackAngle = 0; // Tracks the angle for each slice
     }
-    
+
     renderBars() {  
-        // Function to render the bars on the chart.
+        // Function to render the donut chart slices
         
-        push(); // Saves the current drawing.
-        translate(this.chartPosX, this.chartPosY); // Translates the origin to the chart's position.
-;
+        push(); // Saves the current drawing
+        translate(this.chartPosX, this.chartPosY); // Moves the origin to the center of the chart
+        
         for (let i = 0; i < this.myNewArray.length; i++) {
-            fill(random(0, 100), 100, random(150, 255)); // Random red between 0 and 100, green 100, random blue between 150 and 255
-            stroke(255);
+            fill(random(0, 100), 100, random(150, 255)); // Random color generation for each slice
+            stroke(255); // Stroke color for the arcs
+            
+            // Calculate the angle for each slice based on the data
             let angleEnd = (this.myNewArray[i] / this.total) * 360;
-            arc(0, 0, 650, 650, this.angleStart, angleEnd, PIE);
-
-            let midAngle = (angleEnd-this.angleStart)/2;
-            let xPos = 150*cos(midAngle);
-            let yPos = 150*sin(midAngle)
-
+            
+            // Draw the arc for each slice (donut effect: two radii)
+            arc(0, 0, 750, 750, this.angleStart, this.angleStart + angleEnd, PIE); // Outer arc (donut's outer radius)
             fill(255)
-            noStroke()
+            arc(0, 0, this.innerRadius * 4, this.innerRadius * 4, this.angleStart, this.angleStart + angleEnd, PIE); // Inner arc (donut's inner radius)
+            
+            let midAngle = (angleEnd - this.angleStart) / 2;
+            let xPos = (this.innerRadius + 150) * cos(midAngle); // X position for text
+            let yPos = (this.innerRadius + 150) * sin(midAngle); // Y position for text
+
+            fill(255); // White text color
+            noStroke();
             textSize(20);
             push();
             translate(xPos, yPos);
             
-            if(this.trackAngle<150){
-                rotate(midAngle )
-            }else {
-                rotate(midAngle)
-            }
-            
-            textAlign(LEFT,CENTER)
-            textSize(15)
+            // Rotate the text so it aligns with the slice
+            rotate(midAngle);
+            textAlign(LEFT, CENTER);
+            textSize(20);
             textFont(font);
-            text(this.data[i][this.xValue], 0, 0);
+            text(this.data[i][this.xValue], 0, 0); // Display label (from xValue)
 
-            pop()
-            rotate (angleEnd);
-
-            this.trackAngle = this.trackAngle + angleEnd;
-            
-
+            pop();
+            rotate(angleEnd); // Update the rotation for the next slice
+            this.trackAngle += angleEnd; // Keep track of the total angle
         }
-        pop(); // Restores the original drawing state after positioning the chart.
-        
-        
-        
+
+        pop(); // Restores the original drawing state after positioning the chart
     }
 
-    renderAxis() {  
-        // // Function to render the axes (X and Y) on the chart.
+    // Other functions (renderAxis, renderLabels, etc.) can be kept as they are or modified as per your needs.
+    renderAxis() { push(); // Saves the current drawing
+        translate(this.chartPosX, this.chartPosY); // Moves the origin to the center of the chart
         
-        // push(); // Saves the current drawing state.
-        // translate(this.chartPosX, this.chartPosY); // Translates the origin to the chart's position.
-        // noFill();
-        // stroke(this.axizColour); // Sets the stroke color for the axis lines.
-        // strokeWeight(this.axisThickness); // Sets the thickness of the axis lines.
-        
-        // line(0, 0, 0, -this.chartHeight); // Draws the Y-axis.
-        // line(0, 0, this.chartWidth, 0); // Draws the X-axis.
-
-        // pop(); // Restores the drawing state after rendering the axes.
-    }
-
-    renderLabels() {  
-        // // Function to render labels for the bars on the X-axis.
-        
-        // push(); // Saves the current drawing.
-        // translate(this.chartPosX, this.chartPosY); // Translates the origin to the chart's position.
-
-        // push(); // Saves the drawing state again for a nested transformation.
-        // translate(this.margin, 0); // Adds margin to the left of the chart.
-
-        // for (let i = 0; i < this.data.length; i++) { 
-        //     // Loops through the data to render each label.
+        for (let i = 0; i < this.myNewArray.length; i++) {
+            fill(random(0, 100), 100, random(150, 255)); // Random color generation for each slice
+            stroke(255); // Stroke color for the arcs
             
-        //     let xPos = (this.barWidth + this.gap) * i; // Calculates the X position for each label.
-        //     fill(this.textColour); // Sets the text color.
-        //     noStroke();
-        //     textAlign(LEFT, CENTER); // Aligns he text to the left and vertically centered.
-        //     textSize(15); // Sets the text sizet to 10.
-
-        //     push(); // Saves the drawing state for rotating the text.
-        //     translate(xPos + this.barWidth / 2, 10); // Positions the label in the center of each bar with a slight vertical offset.
-        //     rotate(35);
-        //     text(this.data[i][this.xValue], 2, 0); // Draws the label using the x-value from the data.
-        //     pop(); // Restores the drawing state after rotating the text.
-        // }
-
-        // pop(); // Restores the drawing state after rendering the labels.
-        // pop(); // Restores the original drawing state after positioning the chart.
-    }
-
-    renderTicks() {  
-        // push(); 
-        // translate(this.chartPosX, this.chartPosY); 
-        // noFill();
-        // stroke(this.axizTickColour); 
-        // strokeWeight(this.axisThickness); 
-    
-        // // Find the max Y value from the data
-        // for (let i = 0; i < this.data.length; i++) {
-        //     if (this.data[i][this.yValue] > this.maxValue) {
-        //         this.maxValue = this.data[i][this.yValue];
-        //     }
-        // }
-        
-        // let tickIncrement = this.maxValue / this.Ticks; 
-        // let pixelIncrement = this.chartHeight / this.Ticks;
-        
-        // for (let i = 0; i <= this.Ticks; i++) { 
-        //     let yPos = -pixelIncrement * i;
-        //     let tickValue = tickIncrement * i;
-    
-        //     // Draw ticks on the Y-axis
-        //     line(0, yPos, -this.numTicks, yPos);           
+            // Calculate the angle for each slice based on the data
+            let angleEnd = (this.myNewArray[i] / this.total) * 360;
             
-        //     noStroke();  
+            // Draw the arc for each slice (donut effect: two radii) // Inner arc (donut's inner radius)
+            fill(100)
+            arc(0, 0, 390, 390, this.angleStart, this.angleStart + angleEnd, PIE);
             
-        //     // Draw tick values
-        //     fill(this.textColour);
-        //     textAlign(RIGHT, CENTER);
-        //     textSize(15);
-        //     text(tickValue.toFixed(0), -this.numTicks - 10, yPos);  // Display the tick values rounded to integers
+            let midAngle = (angleEnd - this.angleStart) / 2;
+            let xPos = (this.innerRadius + 50) * cos(midAngle); // X position for text
+            let yPos = (this.innerRadius + 50) * sin(midAngle); // Y position for text
+
+            fill(255); // White text color
+            noStroke();
+            textSize(20);
+            push();
+            translate(xPos, yPos);
             
-        //     stroke(this.axizTickColour);
-        // }
-    
-        // pop();
-    }
+            // Rotate the text so it aligns with the slice
+            rotate(midAngle);
+            textAlign(LEFT, CENTER);
+            textSize(17);
+            textFont(font);
+            text(this.data[i][this.yValue], 0, 0); // Display label (from xValue)
+
+            pop();
+            rotate(angleEnd); // Update the rotation for the next slice
+            this.trackAngle += angleEnd; // Keep track of the total angle
+        }
+
+        pop(); }
+    renderLabels() { /* Not needed for donut chart rendering */ }
+    renderTicks() { /* Not needed for donut chart rendering */ }
 
     renderTitle() {
-        // push();
-        // translate(this.chartPosX, this.chartPosY - this.chartHeight - 30); // Place title above the chart
-        // fill(this.textColour);
-        // textSize(20);
-        // textAlign(CENTER, CENTER);
-        // text(this.chartTitle, 250, 0); // Render the chart title
-        // pop();
     }
     
-      
 }
