@@ -27,8 +27,8 @@ function setup(){
           xValue: "Season",
           yValue: "Messi",
           barWidth: 15,
-          chartPosX: 900,
-          chartPosY: 500,
+          chartPosX: 1000,
+          chartPosY: 450,
         })
       );
     
@@ -39,7 +39,8 @@ function setup(){
           yValue: "Ronaldo",
           barWidth: 15,
           chartPosY: 1000,
-          yValues: ["Messi", "Ronaldo"],
+          yValues: ["Messi", "Ronaldo", "Neymar", "Bale"],
+          yvalueTotal:  ["Total"],
         })
       );
       charts.push(
@@ -47,8 +48,8 @@ function setup(){
           data: cleanedData,
           xValue: "Season",
           yValue: "Bale",
-          barWidth: 15,
-          chartPosX: 800,
+          barWidth: 8,
+          chartPosX: 900,
           chartPosY: 1000,
           yValues: ['Neymar', 'Bale']
         })
@@ -61,7 +62,7 @@ function setup(){
           yValue: "Neymar",
           barWidth: 15,
           chartPosX: 200,
-          chartPosY: 1500,
+          chartPosY: 1600,
         })
       );
 
@@ -71,8 +72,8 @@ function setup(){
           xValue: "Season",
           yValue: "Ronaldo",
           barWidth: 25,
-          chartPosX: 1100,
-          chartPosY: 1400,
+          chartPosX: 1150,
+          chartPosY: 1500,
         })
       );
     
@@ -85,6 +86,7 @@ function draw(){
         chart.renderAxis();
         chart.renderLabels();
         chart.renderTicks();
+        chart.renderTitle();
     })
 
 }

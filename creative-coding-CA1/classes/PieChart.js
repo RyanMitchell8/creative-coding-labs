@@ -165,6 +165,16 @@ class PieChart {
     
         // pop();
     }
+
+    renderTitle() {
+        // push();
+        // translate(this.chartPosX, this.chartPosY - this.chartHeight - 30); // Place title above the chart
+        // fill(this.textColour);
+        // textSize(20);
+        // textAlign(CENTER, CENTER);
+        // text(this.chartTitle, 250, 0); // Render the chart title
+        // pop();
+    }
     
       
 }

@@ -17,7 +17,7 @@ class ClusteredBarChart {
 
     // Calculates the gap between bars, considering the total chart width, bar width, and margin.
     this.gap =
-      (this.chartWidth - (this.data.length * this.barWidth) - this.margin * 2) /
+      (this.chartWidth - (this.data.length * this.barWidth* 2) - (this.margin * 2)) /
       (this.data.length - 1);
 
     this.yvalueTotal = "Total";
@@ -46,10 +46,16 @@ class ClusteredBarChart {
     this.scaler = this.chartHeight / this.maxValue;
 
     this.barColours = [color(255, 0, 0), color(0, 255, 0)];
+    
+    this.chartTitle = obj.chartTitle || "Clustered Bar Chart"; // Add chart title property
+    this.xAxisLabel = this.xValue; // Add X axis label property
+        this.yAxisLabel = obj.yAxisLabel || "Goals Per Season"; // Add Y axis label property
+
   }
 
   renderBars() {
     // Function to render the bars on the chart.
+
 
     push(); // Saves the current drawing.
     translate(this.chartPosX, this.chartPosY); // Translates the origin to the chart's position.
@@ -96,7 +102,21 @@ class ClusteredBarChart {
     strokeWeight(this.axisThickness); // Sets the thickness of the axis lines.
 
     line(0, 0, 0, -this.chartHeight); // Draws the Y-axis.
-    line(0, 0, this.chartWidth + this.chartWidth / 2, 0); // Draws the X-axis.
+    line(0, 0, this.chartWidth, 0); // Draws the X-axis.
+
+    // Render X and Y axis labels at the center
+    fill(this.textColour);
+    textSize(15);
+    textAlign(CENTER, CENTER);
+    
+    // X-axis label (centered)
+    noStroke()
+    text(this.xAxisLabel, this.chartWidth / 2, 100); 
+    
+    // Y-axis label (centered vertically)
+    push();
+    text(this.yAxisLabel, -this.chartHeight / 3, -170); // Rotate to place Y-axis label vertically
+    pop();
 
     pop(); // Restores the drawing state after rendering the axes.
   }
@@ -167,4 +187,14 @@ class ClusteredBarChart {
 
     pop();
   }
+
+  renderTitle() {
+    push();
+    translate(this.chartPosX, this.chartPosY - this.chartHeight - 30); // Place title above the chart
+    fill(this.textColour);
+    textSize(20);
+    textAlign(CENTER, CENTER);
+    text(this.chartTitle, 250, 0); // Render the chart title
+    pop();
+}
 }

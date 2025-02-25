@@ -20,7 +20,7 @@ class StackedBarchart {
       (this.chartWidth - this.data.length * this.barWidth - this.margin * 2) /
       (this.data.length - 1);
 
-    this.yvalueTotal = "Total";
+    this.yvalueTotal = obj.yvalueTotal;
 
     // Calculates a scaling factor for the height of the bars based on the chart height and the maximum value of y-axis data.
     this.scaler =
@@ -38,7 +38,11 @@ class StackedBarchart {
 
     this.yValues = obj.yValues
 
-    this.barColours = [color(255, 0, 0), color(0, 255, 0)];
+    this.barColours = [color(255, 0, 0), color(0, 255, 0), color(0, 255, 255) , color(255, 255, 0)];
+
+    this.chartTitle = obj.chartTitle || "Stacked Bar Chart"; // Add chart title property
+        this.xAxisLabel = this.xValue; // Add X axis label property
+        this.yAxisLabel = obj.yAxisLabel || "Goals Per Season"; // Add Y axis label property
   }
 
   renderBars() {
@@ -87,6 +91,20 @@ class StackedBarchart {
 
     line(0, 0, 0, -this.chartHeight); // Draws the Y-axis.
     line(0, 0, this.chartWidth, 0); // Draws the X-axis.
+
+    // Render X and Y axis labels at the center
+    fill(this.textColour);
+    textSize(15);
+    textAlign(CENTER, CENTER);
+    
+    // X-axis label (centered)
+    noStroke()
+    text(this.xAxisLabel, this.chartWidth / 2, 100); 
+    
+    // Y-axis label (centered vertically)
+    push();
+    text(this.yAxisLabel, -this.chartHeight / 3, -180); // Rotate to place Y-axis label vertically
+    pop();
 
     pop(); // Restores the drawing state after rendering the axes.
   }
@@ -159,4 +177,14 @@ class StackedBarchart {
 
     pop();
   }
+
+  renderTitle() {
+    push();
+    translate(this.chartPosX, this.chartPosY - this.chartHeight - 30); // Place title above the chart
+    fill(this.textColour);
+    textSize(20);
+    textAlign(CENTER, CENTER);
+    text(this.chartTitle, 250, 0); // Render the chart title
+    pop();
+}
 }

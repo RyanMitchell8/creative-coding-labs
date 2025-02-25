@@ -31,6 +31,10 @@ class BarChart {
 
         this.maxValue = 0;
 
+        this.chartTitle = obj.chartTitle || "Bar Chart"; // Add chart title property
+        this.xAxisLabel = this.xValue; // Add X axis label property
+        this.yAxisLabel = obj.yAxisLabel || "Goals Per Season"; // Add Y axis label property
+
     }
     
     renderBars() {  
@@ -67,6 +71,21 @@ class BarChart {
         
         line(0, 0, 0, -this.chartHeight); // Draws the Y-axis.
         line(0, 0, this.chartWidth, 0); // Draws the X-axis.
+
+        // Render X and Y axis labels at the center
+        fill(this.textColour);
+        textSize(15);
+        textAlign(CENTER, CENTER);
+        
+        // X-axis label (centered)
+        noStroke()
+        text(this.xAxisLabel, this.chartWidth / 2, 100); 
+        
+        // Y-axis label (centered vertically)
+        push();
+        text(this.yAxisLabel, -this.chartHeight / 3, -170); // Rotate to place Y-axis label vertically
+        pop();
+
 
         pop(); // Restores the drawing state after rendering the axes.
     }
@@ -135,6 +154,16 @@ class BarChart {
             stroke(this.axizTickColour);
         }
     
+        pop();
+    }
+
+    renderTitle() {
+        push();
+        translate(this.chartPosX, this.chartPosY - this.chartHeight - 30); // Place title above the chart
+        fill(this.textColour);
+        textSize(20);
+        textAlign(CENTER, CENTER);
+        text(this.chartTitle, 250, 0); // Render the chart title
         pop();
     }
     
