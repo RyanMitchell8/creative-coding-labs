@@ -81,8 +81,8 @@ function setup(){
 }
 
 function draw(){
-    background(255);
-    charts.forEach(chart =>{
+  background(255, 250, 210);;   
+  charts.forEach(chart =>{
         chart.renderBars();
         chart.renderAxis();
         chart.renderLabels();

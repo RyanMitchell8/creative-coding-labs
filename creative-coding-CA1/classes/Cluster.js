@@ -113,7 +113,8 @@ class ClusteredBarChart {
     // Y-axis label (centered vertically)
     push();
     textFont(font);
-    text(this.yAxisLabel, -this.chartHeight / 3, -170); // Rotate to place Y-axis label vertically
+    rotate(-90)
+   text(this.yAxisLabel, this.chartHeight /2, -100); // Rotate to place Y-axis label vertically
     pop();
 
     pop(); // Restores the drawing state after rendering the axes.
